@@ -1,0 +1,49 @@
+Gitlet Design Document
+----------------------
+
+
+Classes and Data Structures
+---------------------------
+** Main **
+the driver class, I use two config files to store memories of commits and staging.
+
+** staging **
+the staging area.
+
+** CommitsTree **
+the overall commits tree
+
+** Commit **
+a single commit
+
+** Blob **
+A blob
+
+
+Algorithms
+----------
+BFS to find the nearest split point
+
+Persistence
+-----------
+In order to persist the settings of the machine, we will need to save
+the state of the repo after each call to the program. To do
+this,
+
+1. Write the CommitsTree HashMaps to disk. We can serialize them into
+   bytes that we can eventually write to a specially named file on
+   disk. This can be done with writeObject method from the Utils
+   class.
+
+2. Write all the Staging objects to disk. We can serialize the Rotor
+   objects and write them to files on disk. This can be done with the writeObject
+   method from the Utils class. We will make sure that our Commit, Staging, CommitsTree    
+   class implements the Serializable interface.
+
+In order to retrieve our state, before executing any code, we need to
+search for the saved files in the working directory (folder in which
+our program exists) and load the objects that we saved in them. Since
+we set on a file naming convention our program
+always knows which files it should look for. We can use the readObject
+method from the Utils class to read the data of files as and
+deserialize the objects we previously wrote to these files.
